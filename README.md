@@ -8,6 +8,7 @@ pwd
 whoami
 sudo su -
 history
+shutdown -h now
 last
 ctrl C
 mkdir <NewDirectoryName>
