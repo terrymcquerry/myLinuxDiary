@@ -2,9 +2,11 @@
 touch <fileName>
 rm <fileName>
 clear 
+cat
 cd
-ls
+ls -ltrh
 pwd
+man <command>
 whoami
 sudo su -
 history
@@ -37,7 +39,13 @@ git push origin <branch-name>           push the new branch to the remote repo a
 
 
 
-
+vi <name>                              open or edit file
+i                                      switch to insert mode
+ESC                                    get back to command mode
+:w                                     save and get back to writing
+ZZ                                     save and quit
+:q!                                    quit without saving
+dd                                     delete one line
 
 
 
