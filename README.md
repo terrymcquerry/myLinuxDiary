@@ -52,3 +52,16 @@ dd                                     delete one line
 
 ssh user@ipaddress
 
+
+<?php
+                                       write a php file, run it with php <file.php>, get to interactive php mode with php -a
+?>                
+
+convert file.jpg -resize  30%  file1.jpg      converts file size (first install ImageMagick
+
+feh file.jpg                          view image files, first install feh
+
+file <filename>                       get file type from linux
+
+hexedit                               edit file in hex mode, f2 to save, ctrl x to exit
+
