@@ -1,14 +1,14 @@
 Directories
 ==========
 
-`pwd`
-`cd`
-`ls -ltrh`
-`mkdir`
-`touch`
-`rm`
-`cp`
-`mv`
+`pwd`\
+`cd`\
+`ls -ltrh`\
+`mkdir`\
+`touch`\
+`rm`\
+`cp`\
+`mv`\
 
 Act on terminal
 ==========
