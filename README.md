@@ -1,7 +1,7 @@
 Directories
 ==========
 Act on terminal
-=========
+==========
 `clear` or press ctrl+l to clear the terminal\
 press Q, crtl+c or ctrl+d to exit\
 `shutdown`\
