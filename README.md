@@ -8,7 +8,7 @@ Directories
 `touch`\
 `rm`\
 `cp`\
-`mv`\
+`mv`
 
 Act on terminal
 ==========
@@ -20,6 +20,7 @@ press Q, crtl+c or ctrl+d to exit\
 `shutdown -c` cancel the pending shutdown\
 `reboot`\
 `sudo su` become root user\
+`sudo passwd [username]` change password for user\
 
 Get info 
 ==========
@@ -27,8 +28,13 @@ Get info
 `whoami` get username\
 `uname -a` get system information\
 `history` get a list of previous commands\
+`!!` get the last command\
+`sudo !!` repeat command with privileges\
 `!53` recall and execute the command associated with the history number\
 `history -c` delete history\
+`ctrl+R` search history, hit again for previous command, hit ctrl+g to exit\
+`export HISTSIZE=50` change history size to 50\
+`history > cmds.txt` save history to a cheatsheet\
 `uptime`\
 `type` get type of command\
 `file (fileName)` get file type\
