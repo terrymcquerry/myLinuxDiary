@@ -13,8 +13,10 @@ Directories
 ==========
 
 `pwd`\
-`cd`\
-`ls -ltrh`\
+`cd` changes to home directory\
+`cd ..` changes to parent directory\
+`cd -` changes to previous working directory\
+`ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
 `mkdir`\
 `touch`\
 `rm`\
