@@ -1,10 +1,13 @@
 Intersting stuff
 ==========
-If you highlight some
+- If you highlight some
 text by holding down the left mouse button and dragging the
 mouse over it (or double-clicking a word), it is copied into a buffer
 maintained by X. Pressing the middle mouse button will cause the
 text to be pasted at the cursor location.\
+- We can end a terminal session by closing the terminal emulator window,
+by entering the exit command at the shell prompt, or by pressing CTRL-
+D.\
 
 Directories
 ==========
@@ -32,7 +35,8 @@ press Q, crtl+c or ctrl+d to exit\
 
 Get info 
 ==========
-
+`date` displays the current time and date\
+`cal` displays a calendar of the current month\
 `whoami` get username\
 `uname -a` get system information\
 `history` get a list of previous commands\
@@ -50,6 +54,8 @@ Get info
 `man`\
 `top`/`htop`\
 `ping`/`ifconfig`\
+`df` displays the current amount of free space on our disk drives\
+`free` displays the amount of free memory\
 
 Tools
 ==========
