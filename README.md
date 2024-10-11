@@ -4,10 +4,10 @@ Intersting stuff
 text by holding down the left mouse button and dragging the
 mouse over it (or double-clicking a word), it is copied into a buffer
 maintained by X. Pressing the middle mouse button will cause the
-text to be pasted at the cursor location.\
+text to be pasted at the cursor location.
 - We can end a terminal session by closing the terminal emulator window,
 by entering the exit command at the shell prompt, or by pressing CTRL-
-D.\
+D.
 
 Directories
 ==========
