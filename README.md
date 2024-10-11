@@ -1,3 +1,11 @@
+Intersting stuff
+==========
+If you highlight some
+text by holding down the left mouse button and dragging the
+mouse over it (or double-clicking a word), it is copied into a buffer
+maintained by X. Pressing the middle mouse button will cause the
+text to be pasted at the cursor location.\
+
 Directories
 ==========
 
