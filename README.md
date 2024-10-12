@@ -1,14 +1,3 @@
-Intersting stuff
-==========
-- If you highlight some
-text by holding down the left mouse button and dragging the
-mouse over it (or double-clicking a word), it is copied into a buffer
-maintained by X. Pressing the middle mouse button will cause the
-text to be pasted at the cursor location.
-- We can end a terminal session by closing the terminal emulator window,
-by entering the exit command at the shell prompt, or by pressing CTRL-
-D.
-
 Directories
 ==========
 
@@ -17,11 +6,17 @@ Directories
 `cd ..` changes to parent directory\
 `cd -` changes to previous working directory\
 `ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
-`mkdir`\
+`mkdir` directory... (as many as you want)\
+`rm -rf or -ir`\ (tip: check what you want to remove, with ls first)
+`cp -u *.html destination`\copy only html ﬁles that do not exist in the destination directory or are newerthan the versions in the destination directory
+-i iption for copying asks before overwriting repetetive file names
+`cp file1 file2 dir1` Copies file1 and file2 into directory dir1. The directory dir1 must already exist
+`cp dir1/* dir2` copies every file in dir1 to dir2
+`mv -i file1 file2` Move file1 to file2. If file2 exists, it is overwritten with the contents of file1. If file2 does not exist, it is created. In either case, file1 ceases to exist and prompts you before overwriting if file2 already exists
+`mv file... dir` move one or more files to a directory
 `touch`\
-`rm`\
-`cp`\
-`mv`
+`ln file link` create hard link
+`ln -s item link` creat soft link (item is either a file or a directory)
 
 Act on terminal
 ==========
@@ -40,6 +35,8 @@ Get info
 `date` displays the current time and date\
 `cal` displays a calendar of the current month\
 `whoami` get username\
+`whatis command` gives short description\
+`info command` gives info\
 `uname -a` get system information\
 `history` get a list of previous commands\
 `!!` get the last command\
@@ -63,6 +60,7 @@ Tools
 ==========
 
 `cat`\
+`less`\
 `find`\
 `grep`\
 `head`\
@@ -74,6 +72,10 @@ Tools
 `hexedit` edit file in hex mode, f2 to save, ctrl x to exit\
 `feh file.jpg` view image files\
 `convert file.jpg -resize  30%  file1.jpg` after installing ImageMagick use to convert file size\
+`alias name='string'` name shouldn't be taken (check with type)\
+`unalias command`\
+`alias` list all aliases\
+
 
 `vi`
 ------------
@@ -93,10 +95,10 @@ Tools
 `apt remove` If you don't want to remove the configuration files\
 `apt autoremove`                    remove any unused packages\
 `apt clean`                          remove downloaded archive files\
-`apt-get update`\
+`apt update`\
 `apt list --upgradable`\
 `apt upgrade`\
-`apt-get dist-upgrade`
+`apt dist-upgrade`
 
 `Git`
 --------------
@@ -108,3 +110,16 @@ Tools
 `git merge (branch-name)` merges this branch to the current branch\
 `git branch -d (branch-name)` delete a branch (mostly after merging)\
 `git push origin (branch-name)` push the new branch to the remote repo and afterwards\
+
+Intersting stuff
+==========
+- If you highlight some
+text by holding down the left mouse button and dragging the
+mouse over it (or double-clicking a word), it is copied into a buffer
+maintained by X. Pressing the middle mouse button will cause the
+text to be pasted at the cursor location.
+- We can end a terminal session by closing the terminal emulator window,
+by entering the exit command at the shell prompt, or by pressing CTRL-
+D.
+press CTRL-SHIFT while dragging a file, to make a symbolic link in GUI.
+It’s possible to put more than one command on a line by separating each command with a semicolon.
