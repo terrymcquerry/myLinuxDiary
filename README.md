@@ -6,7 +6,7 @@ Directories
 `cd ..` changes to parent directory\
 `cd -` changes to previous working directory\
 `ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
-`mkdir` directory... (as many as you want)\
+`mkdir` directory... (as many as you want)(we can use brace expansions too like this: mkdir {2007..2009}-{01..12})\
 `rm -rf or -ir`\ (tip: check what you want to remove, with ls first)
 `cp -u *.html destination`\copy only html ﬁles that do not exist in the destination directory or are newerthan the versions in the destination directory
 -i iption for copying asks before overwriting repetetive file names
@@ -49,7 +49,8 @@ Get info
 `uptime`\
 `type` get type of command\
 `file (fileName)` get file type\
-`echo`\
+`echo`\ (for example echo [[:upper:]]* (it expands and echos list of files starting with uppercase))
+Also can be used as a claculator: $((mathematical expression))
 `man`\
 `top`/`htop`\
 `ping`/`ifconfig`\
@@ -59,12 +60,21 @@ Get info
 Tools
 ==========
 
-`cat`\
+`cat` displays text file\
+`cat movie.mpeg.0* > movie.mpeg` joins files back together\
+`cat > file1.txt` accepts input, by pressing ctrl-D saves the text to the file1.txt
 `less`\
+`|` pipelines (for example you can pipe the output of any command to less to easily examine that)
+`sort` sorts the output
+`uniq` removes duplicate lines
+-d option to see duplicates
+`wc` displays number of lines, words, and bytes
+-l option displays number of lines (good for counting items in a list)
 `find`\
-`grep`\
-`head`\
-`tail`\
+`grep pattern filename`\ -i ignores case sensetivity, -v ptints only the lines that do not match the pattern
+`head`\ prints first 10 line (adjust with -n option)
+`tail`\ prints last 10 line, -f option to see in real time
+`tee` read from stdin and output to stdout and files
 `nano`/`vim`\
 `kill`/`xkill`\
 `curl`\
@@ -75,6 +85,11 @@ Tools
 `alias name='string'` name shouldn't be taken (check with type)\
 `unalias command`\
 `alias` list all aliases\
+`>` redirect standard output (using with no command will truncate existing file or create new empty one)
+`2>`redirects standard error (file descriptor number 2)
+`>>` appends the result to an existing file or just creates one
+`&>` or `&>>` redirects of appends both standard and error outputs to file (also we can use the old version for example: ls -l /bin/usr > ls-output.txt 2>&1 (only in this order))
+`2> /dev/null` dispose of unwanted output
 
 
 `vi`
