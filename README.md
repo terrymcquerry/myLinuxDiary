@@ -1,22 +1,23 @@
 Directories
 ==========
 
-`pwd`\
+`pwd` print working directory\
 `cd` changes to home directory\
 `cd ..` changes to parent directory\
 `cd -` changes to previous working directory\
 `ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
-`mkdir` directory... (as many as you want)(we can use brace expansions too like this: mkdir {2007..2009}-{01..12})\
+`ls -l $(which cp)` get list of a program without knowing it's full pathname\
+`mkdir` directory... (as many as you want)(we can use brace expansions too like this: `mkdir {2007..2009}-{01..12}`)\
 `rm -rf or -ir`\ (tip: check what you want to remove, with ls first)
-`cp -u *.html destination`\copy only html ﬁles that do not exist in the destination directory or are newerthan the versions in the destination directory
--i iption for copying asks before overwriting repetetive file names
-`cp file1 file2 dir1` Copies file1 and file2 into directory dir1. The directory dir1 must already exist
-`cp dir1/* dir2` copies every file in dir1 to dir2
-`mv -i file1 file2` Move file1 to file2. If file2 exists, it is overwritten with the contents of file1. If file2 does not exist, it is created. In either case, file1 ceases to exist and prompts you before overwriting if file2 already exists
-`mv file... dir` move one or more files to a directory
+`cp -u *.html destination` copy only html ﬁles that do not exist in the destination directory or are newerthan the versions in the destination directory\
+-i iption for copying asks before overwriting repetetive file names\
+`cp file1 file2 dir1` Copies file1 and file2 into directory dir1. The directory dir1 must already exist\
+`cp dir1/* dir2` copies every file in dir1 to dir2\
+`mv -i file1 file2` Move file1 to file2. If file2 exists, it is overwritten with the contents of file1. If file2 does not exist, it is created. In either case, file1 ceases to exist and prompts you before overwriting if file2 already exists\
+`mv file... dir` move one or more files to a directory\
 `touch`\
-`ln file link` create hard link
-`ln -s item link` creat soft link (item is either a file or a directory)
+`ln file link` create hard link\
+`ln -s item link` creat soft link (item is either a file or a directory)\
 
 Act on terminal
 ==========
@@ -43,7 +44,7 @@ Get info
 `sudo !!` repeat command with privileges\
 `!53` recall and execute the command associated with the history number\
 `history -c` delete history\
-`ctrl+R` search history, hit again for previous command, hit ctrl+g to exit\
+To start incremental search, press CTRL-R followed by the text you are looking for. When you ﬁnd it, you can either press ENTER to execute the command or press CTRL-J to copy the line from the history list to the current command line. To ﬁnd the next occurrence of the text (moving “up” the history list), press CTRL-R again. To quit searching, press either CTRL-G or CTRL-C.\
 `export HISTSIZE=50` change history size to 50\
 `history > cmds.txt` save history to a cheatsheet\
 `uptime`\
@@ -51,11 +52,14 @@ Get info
 `file (fileName)` get file type\
 `echo`\ (for example echo [[:upper:]]* (it expands and echos list of files starting with uppercase))
 Also can be used as a claculator: $((mathematical expression))
+Parameter expansion (echo $USER)\
+Or command substitution: echo `$(ls)`\
 `man`\
 `top`/`htop`\
 `ping`/`ifconfig`\
 `df` displays the current amount of free space on our disk drives\
 `free` displays the amount of free memory\
+`printenv` prints a list of available variables\
 
 Tools
 ==========
@@ -85,11 +89,11 @@ Tools
 `alias name='string'` name shouldn't be taken (check with type)\
 `unalias command`\
 `alias` list all aliases\
-`>` redirect standard output (using with no command will truncate existing file or create new empty one)
-`2>`redirects standard error (file descriptor number 2)
-`>>` appends the result to an existing file or just creates one
-`&>` or `&>>` redirects of appends both standard and error outputs to file (also we can use the old version for example: ls -l /bin/usr > ls-output.txt 2>&1 (only in this order))
-`2> /dev/null` dispose of unwanted output
+`>` redirect standard output (using with no command will truncate existing file or create new empty one)\
+`2>`redirects standard error (file descriptor number 2)\
+`>>` appends the result to an existing file or just creates one\
+`&>` or `&>>` redirects of appends both standard and error outputs to file (also we can use the old version for example: ls -l /bin/usr > ls-output.txt 2>&1 (only in this order))\
+`2> /dev/null` dispose of unwanted output\
 
 
 `vi`
@@ -136,5 +140,7 @@ text to be pasted at the cursor location.
 - We can end a terminal session by closing the terminal emulator window,
 by entering the exit command at the shell prompt, or by pressing CTRL-
 D.
-press CTRL-SHIFT while dragging a file, to make a symbolic link in GUI.
+- press CTRL-SHIFT while dragging a file, to make a symbolic link in GUI.\
 It’s possible to put more than one command on a line by separating each command with a semicolon.
+- Using double quotes, we can cope with ﬁlenames containing embedded spaces. In general, word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed; however, parameter expansion, arithmetic expansion, and command substitution are still carried out. While single quotes suppress every kind of expansion. Use backslash (escape character) to selectively prevent an expansion. Escape this by double backslashing.
+- pressing Tab completes the pathname. Completion will also work on variables (if the beginning of the word is a $), usernames (if the word begins with ~), commands (if the word is the ﬁrst word on the line), and hostnames (if the beginning of the word is @). Hostname completion works only for hostnames listed in /etc/hosts.
