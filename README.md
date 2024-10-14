@@ -123,12 +123,17 @@ Tools
 --------------
 
 `git config --global init.defaultBranch main`\
+`git clone "ssh link"` make the directory on machine\
+`git add .` 
+`git commit -m "message"`
+`git push origin`git push origin (branch-name)` push the new branch to the remote repo\
+`git status`\
 `git branch (new-branch)` build a new branch\
 `git checkout (branch-name)` change branch (add -b flag to build it at the same time)\
 `git branch` list all branches\
 `git merge (branch-name)` merges this branch to the current branch\
 `git branch -d (branch-name)` delete a branch (mostly after merging)\
-`git push origin (branch-name)` push the new branch to the remote repo and afterwards\
+
 
 Intersting stuff
 ==========
