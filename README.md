@@ -30,6 +30,9 @@ press Q, crtl+c or ctrl+d to exit\
 `reboot`\
 `sudo su` become root user\
 `sudo passwd [username]` change password for user\
+`cmd1; cmd2` run the first command, then run the second one\
+`cmd1 && cmd2` Run cmd2 if cmd1 is successful\
+`cmd1 || cmd2` Run cmd2 if cmd1 is not successful\
 
 Get info 
 ==========
@@ -41,7 +44,9 @@ Get info
 `uname -a` get system information\
 `history` get a list of previous commands\
 `!!` get the last command\
-`sudo !!` repeat command with privileges\
+`sudo !!` run previous command with privileges\
+`!abc:p` print the last command starting with abc\
+`ctrl + R` search easier\
 `!53` recall and execute the command associated with the history number\
 `history -c` delete history\
 To start incremental search, press CTRL-R followed by the text you are looking for. When you ﬁnd it, you can either press ENTER to execute the command or press CTRL-J to copy the line from the history list to the current command line. To ﬁnd the next occurrence of the text (moving “up” the history list), press CTRL-R again. To quit searching, press either CTRL-G or CTRL-C.\
@@ -80,6 +85,7 @@ Tools
 `tail`\ prints last 10 line, -f option to see in real time
 `tee` read from stdin and output to stdout and files
 `nano`/`vim`\
+`open X` Open X in its default program\
 `kill`/`xkill`\
 `curl`\
 `ssh user@ipaddress`\
