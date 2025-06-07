@@ -66,6 +66,15 @@ Or command substitution: echo `$(ls)`\
 `free` displays the amount of free memory\
 `printenv` prints a list of available variables\
 
+Get info on hardware 
+====================
+`lspci` Shows all devices currently connected to the PCI (Peripheral Component Interconnect) bus\
+`lsusb` Lists USB (Universal Serial Bus) devices currently connected to the machine (specified by id: `lsusb -v -d 1781:0c9f`)\
+`lspci -s 04:02.0 -v` shows more details about a specific device (kernel module can be identified)\
+`lsmod` shows all currently loaded modules
+`modprobe -r` to unload a module\
+
+
 Tools
 ==========
 
