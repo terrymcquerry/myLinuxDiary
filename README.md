@@ -137,12 +137,30 @@ Tools
 `Git`
 --------------
 
-`git config --global init.defaultBranch main`\
+## *start*
+`git init` start a git repository on your folder\
+`git status`check the status of your repository\
+`git add .` prepare files for commit ("." means all files)\
+`git commit -m "message"` commit the staged files\
+`git log` view project history\
+
+## *set up*
+`git config` configure git on three levels: system level (apply to all machines), global level (apply for all projects on the machine), local level (apply to a particular project)\
+`git config --list` display all configured variables (can specify with --global or --local options)\
+`git config --global user.name "Your Name"` set your name globally (`git config --global user.name` to verify)\
+`git config --global user.email "your.email@example.com"` set your email globally (`git config --global user.email` to verify) (better to use github prvate email)\
+`git config --global color.ui auto` turn on color display globally\
+`git config --global core.editor nano` set Nano as your default editor\
+`git config --global core.autocrlf input` onvert CRLF to LF when you commit but not on checking out\
+`git config --global alias.st status` creates an alias st for the status command\
+`git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"` sets an alias for the log command and makes the output look better\
+`git config --global init.defaultBranch main` for recent changes on github\
+`git config --global pull.rebase false` set your default branch reconciliation behavior to merging\
+
+## *build ssh key pairs*
+
 `git clone "ssh link"` make the directory on machine\
-`git add .` 
-`git commit -m "message"`
 `git push origin`git push origin (branch-name)` push the new branch to the remote repo\
-`git status`\
 `git branch (new-branch)` build a new branch\
 `git checkout (branch-name)` change branch (add -b flag to build it at the same time)\
 `git branch` list all branches\
