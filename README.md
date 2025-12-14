@@ -179,6 +179,6 @@ text to be pasted at the cursor location.
 by entering the exit command at the shell prompt, or by pressing CTRL-
 D.
 - press CTRL-SHIFT while dragging a file, to make a symbolic link in GUI.\
-It’s possible to put more than one command on a line by separating each command with a semicolon.
+- It’s possible to put more than one command on a line by separating each command with a semicolon.
 - Using double quotes, we can cope with ﬁlenames containing embedded spaces. In general, word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed; however, parameter expansion, arithmetic expansion, and command substitution are still carried out. While single quotes suppress every kind of expansion. Use backslash (escape character) to selectively prevent an expansion. Escape this by double backslashing.
 - pressing Tab completes the pathname. Completion will also work on variables (if the beginning of the word is a $), usernames (if the word begins with ~), commands (if the word is the ﬁrst word on the line), and hostnames (if the beginning of the word is @). Hostname completion works only for hostnames listed in /etc/hosts.
