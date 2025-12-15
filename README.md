@@ -55,10 +55,11 @@ To start incremental search, press CTRL-R followed by the text you are looking f
 `uptime`\
 `type` get type of command\
 `file (fileName)` get file type\
-`echo`\ (for example echo [[:upper:]]* (it expands and echos list of files starting with uppercase))
+`echo` (for example echo [[:upper:]]* (it expands and echos list of files starting with uppercase))
 Also can be used as a claculator: $((mathematical expression))
 Parameter expansion (echo $USER)\
 Or command substitution: echo `$(ls)`\
+`echo "new line" > textfile.txt` make a text file with this line in it (for adding another line you should use >> or it would rewrite the file instead of appending)\
 `man`\
 `top`/`htop`\
 `ping`/`ifconfig`\
@@ -137,12 +138,22 @@ Tools
 `Git`
 --------------
 
-## *start*
+## *Basics*
 `git init` start a git repository on your folder\
 `git status`check the status of your repository\
 `git add .` prepare files for commit ("." means all files)\
+`git restore --staged myfile.py` unstage file\
 `git commit -m "message"` commit the staged files\
 `git log` view project history\
+`echo "*.log" > .gitignore` specify patterns for files you want to keep untracked (in this case files with log extension) in a gitignore file\
+`git diff` see changes in a file. (-)shows removed and (+) shows added changes\
+`git diff --staged` see staged changes\
+`git branch (new-branch)` build a new branch (When you create a new branch, it starts as an exact copy of the branch you were on.) \
+`git branch` list all branches (The * shows which branch you're currently in)\
+`git branch -a` see all branches. This includes remote branches (when working with colaboraters)\
+`git checkout (branch-name)` or `git switch (branch-name)` change branch (add -b (for checkout) or -c flag (for switch) to build it at the same time)\
+`git diff branch-name` see changes made in the new branch compared to the branch-name\
+`git merge (branch-name)` merges this branch to the current branch ("Fast-forward" means Git was able to simply move the current branch forward to where branch-name was. Since there was no conflict between the branches, this is the simplest form of merging)\
 
 ## *set up*
 `git config` configure git on three levels: system level (apply to all machines), global level (apply for all projects on the machine), local level (apply to a particular project)\
@@ -156,16 +167,13 @@ Tools
 `git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"` sets an alias for the log command and makes the output look better\
 `git config --global init.defaultBranch main` for recent changes on github\
 `git config --global pull.rebase false` set your default branch reconciliation behavior to merging\
+`git branch --merged` see which branches where integrated\
+`git branch -d branch-name` delete branch after merging (-d flag is there to ensure deletion of the merged branch only. use -D to force delete)
 
 ## *build ssh key pairs*
 
 `git clone "ssh link"` make the directory on machine\
 `git push origin`git push origin (branch-name)` push the new branch to the remote repo\
-`git branch (new-branch)` build a new branch\
-`git checkout (branch-name)` change branch (add -b flag to build it at the same time)\
-`git branch` list all branches\
-`git merge (branch-name)` merges this branch to the current branch\
-`git branch -d (branch-name)` delete a branch (mostly after merging)\
 
 
 Intersting stuff
