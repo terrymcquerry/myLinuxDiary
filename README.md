@@ -15,7 +15,7 @@ Directories
 `cp dir1/* dir2` copies every file in dir1 to dir2\
 `mv -i file1 file2` Move file1 to file2. If file2 exists, it is overwritten with the contents of file1. If file2 does not exist, it is created. In either case, file1 ceases to exist and prompts you before overwriting if file2 already exists\
 `mv file... dir` move one or more files to a directory\
-`touch`\
+`touch` to make a new file or update the time of last modification (`touch new.txt` or in another directory `touch /home/user/project/new.txt`\
 `ln file link` create hard link\
 `ln -s item link` creat soft link (item is either a file or a directory)\
 
@@ -139,6 +139,7 @@ Tools
 --------------
 
 ## *Basics*
+
 `git init` start a git repository on your folder\
 `git status`check the status of your repository\
 `git add .` prepare files for commit ("." means all files)\
@@ -154,6 +155,8 @@ Tools
 `git checkout (branch-name)` or `git switch (branch-name)` change branch (add -b (for checkout) or -c flag (for switch) to build it at the same time)\
 `git diff branch-name` see changes made in the new branch compared to the branch-name\
 `git merge (branch-name)` merges this branch to the current branch ("Fast-forward" means Git was able to simply move the current branch forward to where branch-name was. Since there was no conflict between the branches, this is the simplest form of merging)\
+`git branch --merged` see which branches where integrated\
+`git branch -d branch-name` delete branch after merging (-d flag is there to ensure deletion of the merged branch only. use -D to force delete)
 
 ## *set up*
 `git config` configure git on three levels: system level (apply to all machines), global level (apply for all projects on the machine), local level (apply to a particular project)\
@@ -167,13 +170,21 @@ Tools
 `git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"` sets an alias for the log command and makes the output look better\
 `git config --global init.defaultBranch main` for recent changes on github\
 `git config --global pull.rebase false` set your default branch reconciliation behavior to merging\
-`git branch --merged` see which branches where integrated\
-`git branch -d branch-name` delete branch after merging (-d flag is there to ensure deletion of the merged branch only. use -D to force delete)
+
 
 ## *build ssh key pairs*
 
-`git clone "ssh link"` make the directory on machine\
-`git push origin`git push origin (branch-name)` push the new branch to the remote repo\
+
+
+# Shell Scripting
+Shebang line: `#!/bin/bash` (as first line in the .sh file)\
+change mode of the file to executable via (new files are by default non-executable): `chmod +x file.sh`\
+Now to run the file: `./file.sh`\
+Define a variable: `myFirstVariable=5` (it's assigned by = and in this case it's an integer)\
+Now to print the variable: `echo "My variable is: $myFirstVariable"` (dollar sign calls the content of the variable), (put a backslash behind the dollar sign to print it literally)\
+Curly braces {} are used to clearly define the variable name: `${myVariable}`\
+In order to preserve white space in a variable use double quotes when using echo, otherwise it would not be printed\
+
 
 
 Intersting stuff
