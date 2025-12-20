@@ -6,18 +6,24 @@ Directories
 `cd ..` changes to parent directory\
 `cd -` changes to previous working directory\
 `ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
+`ls -R` list reclusively\
 `ls -l $(which cp)` get list of a program without knowing it's full pathname\
 `mkdir` directory... (as many as you want)(we can use brace expansions too like this: `mkdir {2007..2009}-{01..12}`)\
-`rm -rf or -ir`\ (tip: check what you want to remove, with ls first)
+`rm -rf or -ir` r for reclusively and f for forceful and i for prompting (tip: check what you want to remove, with ls first)\
+`cp file1 file1copy` makes a copy of file1 named file1copy\
+`cp -r dir1 dir2` makes a copy of dir1 reclusively to ensure every file and directory is copied\
 `cp -u *.html destination` copy only html ﬁles that do not exist in the destination directory or are newerthan the versions in the destination directory\
 -i iption for copying asks before overwriting repetetive file names\
-`cp file1 file2 dir1` Copies file1 and file2 into directory dir1. The directory dir1 must already exist\
+`cp file1 dir1` Copies file1 into directory dir1. The directory dir1 must already exist\
 `cp dir1/* dir2` copies every file in dir1 to dir2\
 `mv -i file1 file2` Move file1 to file2. If file2 exists, it is overwritten with the contents of file1. If file2 does not exist, it is created. In either case, file1 ceases to exist and prompts you before overwriting if file2 already exists\
 `mv file... dir` move one or more files to a directory\
-`touch` to make a new file or update the time of last modification (`touch new.txt` or in another directory `touch /home/user/project/new.txt`\
+`mv dir/file ./newfile` moves the file from dirctory to the current dirctory and changes it's name.\
+`touch` to make a new file or update the timestamp of it's last modification (`touch new.txt` or in another directory `touch /home/user/project/new.txt`\
 `ln file link` create hard link\
 `ln -s item link` creat soft link (item is either a file or a directory)\
+`diff file1 file1` shows the changes needed in file1 in order for it to match file2\
+`diff -r dir1 dir2` compares dirctories contents reclusively\
 
 Act on terminal
 ==========
@@ -80,8 +86,11 @@ Tools
 ==========
 
 `cat` displays text file\
+`cat -n` displays text with number of lines\
 `cat movie.mpeg.0* > movie.mpeg` joins files back together\
-`cat > file1.txt` accepts input, by pressing ctrl-D saves the text to the file1.txt
+`cat > file1.txt` accepts input, by pressing ctrl-D saves the text to the file1.txt\
+`head` prints first 10 line (adjust with -n option) (the -c option is for the number of bytes (characters) shown)\
+`tail` opposite of the head command\
 `less`\
 `|` pipelines (for example you can pipe the output of any command to less to easily examine that)
 `sort` sorts the output
@@ -91,10 +100,8 @@ Tools
 -l option displays number of lines (good for counting items in a list)
 `find`\
 `grep pattern filename`\ -i ignores case sensetivity, -v ptints only the lines that do not match the pattern
-`head`\ prints first 10 line (adjust with -n option)
 `tail`\ prints last 10 line, -f option to see in real time
 `tee` read from stdin and output to stdout and files
-`nano`/`vim`\
 `open X` Open X in its default program\
 `kill`/`xkill`\
 `curl`\
@@ -114,13 +121,24 @@ Tools
 
 `vi`
 ------------
-**vi (name)** *open or edit file*\
-**i** *switch to insert mode*\
-**ESC** *get back to command mode*\
-**:w** *save and get back to writing*\
-**ZZ** *save and quit*\
-**:q!** *quit without saving*\
-**dd** *delete one line*\
+
+`vi newtext.txt` open or edit file\
+`i` switch to insert mode\
+**push esc** to get back to normal mode. Now in normal mode:\
+`:w` save and get back to writing\
+`ZZ` or `:wq` save and quit\
+`:q!` quit without saving\
+`dd` delete one line\
+`gg` move the cursor to the beginning of the text\
+use h, j, k, and l keys to move the cursor to left, down, up, and right.\
+use the `/` to search for words. use `n` to see next occurances.\
+`dw` to delete the word your cursor is at.\
+`x` to delete a single character.\
+`a` to append text at the cursor.\
+`d$`  to delete to the end of the line.\
+
+
+
 
 `apt`
 ------------
@@ -128,8 +146,8 @@ Tools
 `apt list --installed`\
 `apt purge`\
 `apt remove` If you don't want to remove the configuration files\
-`apt autoremove`                    remove any unused packages\
-`apt clean`                          remove downloaded archive files\
+`apt autoremove` Remove any unused packages\
+`apt clean` Remove downloaded archive files\
 `apt update`\
 `apt list --upgradable`\
 `apt upgrade`\
