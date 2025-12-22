@@ -6,24 +6,27 @@ Directories
 `cd ..` changes to parent directory\
 `cd -` changes to previous working directory\
 `ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
-`ls -R` list reclusively\
+`ls -R` list recursively\
 `ls -l $(which cp)` get list of a program without knowing it's full pathname\
 `mkdir` directory... (as many as you want)(we can use brace expansions too like this: `mkdir {2007..2009}-{01..12}`)\
-`rm -rf or -ir` r for reclusively and f for forceful and i for prompting (tip: check what you want to remove, with ls first)\
+`mkdir -p dir1/dir2/dir3` make parent directories as needed. option `-v` would print what was done\
+`rm -rf or -ir` r for recursively and f for forceful and i for prompting (tip: check what you want to remove, with ls first)\
 `cp file1 file1copy` makes a copy of file1 named file1copy\
-`cp -r dir1 dir2` makes a copy of dir1 reclusively to ensure every file and directory is copied\
+`cp -r dir1 dir2` makes a copy of dir1 recursively to ensure every file and directory is copied\
 `cp -u *.html destination` copy only html ﬁles that do not exist in the destination directory or are newerthan the versions in the destination directory\
 -i iption for copying asks before overwriting repetetive file names\
 `cp file1 dir1` Copies file1 into directory dir1. The directory dir1 must already exist\
 `cp dir1/* dir2` copies every file in dir1 to dir2\
 `mv -i file1 file2` Move file1 to file2. If file2 exists, it is overwritten with the contents of file1. If file2 does not exist, it is created. In either case, file1 ceases to exist and prompts you before overwriting if file2 already exists\
+`mv file1 .file` hides the file and vice versa.
 `mv file... dir` move one or more files to a directory\
 `mv dir/file ./newfile` moves the file from dirctory to the current dirctory and changes it's name.\
+`mv dir1 dir2` no need for the -r option\
 `touch` to make a new file or update the timestamp of it's last modification (`touch new.txt` or in another directory `touch /home/user/project/new.txt`\
 `ln file link` create hard link\
 `ln -s item link` creat soft link (item is either a file or a directory)\
 `diff file1 file1` shows the changes needed in file1 in order for it to match file2\
-`diff -r dir1 dir2` compares dirctories contents reclusively\
+`diff -r dir1 dir2` compares dirctories contents recursively\
 
 Act on terminal
 ==========
@@ -59,12 +62,15 @@ To start incremental search, press CTRL-R followed by the text you are looking f
 `export HISTSIZE=50` change history size to 50\
 `history > cmds.txt` save history to a cheatsheet\
 `uptime`\
+`man <command>` print manual for the certain command. search for certain words by pressing forward slash\
+`man -k <search term>` search for the words you remember when you are not sure of the command\
 `type` get type of command\
 `file (fileName)` get file type\
 `echo` (for example echo [[:upper:]]* (it expands and echos list of files starting with uppercase))
 Also can be used as a claculator: $((mathematical expression))
 Parameter expansion (echo $USER)\
 Or command substitution: echo `$(ls)`\
+`echo $HISTSIZE` display system variables\
 `echo "new line" > textfile.txt` make a text file with this line in it (for adding another line you should use >> or it would rewrite the file instead of appending)\
 `man`\
 `top`/`htop`\
@@ -117,7 +123,8 @@ Tools
 `>>` appends the result to an existing file or just creates one\
 `&>` or `&>>` redirects of appends both standard and error outputs to file (also we can use the old version for example: ls -l /bin/usr > ls-output.txt 2>&1 (only in this order))\
 `2> /dev/null` dispose of unwanted output\
-
+`chmod [permissions] [path]` change persmission for (ugoa) user (or owner), group, others, all, granting or revoking the permission - indicated with either a plus ( + ) or minus ( - ), Which permission are we setting? - read ( r ), write ( w ) or execute ( x ). example: `chmod u-w file.txt` take away writing permission from user.\
+ 
 
 `vi`
 ------------
@@ -219,3 +226,4 @@ D.
 - It’s possible to put more than one command on a line by separating each command with a semicolon.
 - Using double quotes, we can cope with ﬁlenames containing embedded spaces. In general, word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed; however, parameter expansion, arithmetic expansion, and command substitution are still carried out. While single quotes suppress every kind of expansion. Use backslash (escape character) to selectively prevent an expansion. Escape this by double backslashing.
 - pressing Tab completes the pathname. Completion will also work on variables (if the beginning of the word is a $), usernames (if the word begins with ~), commands (if the word is the ﬁrst word on the line), and hostnames (if the beginning of the word is @). Hostname completion works only for hostnames listed in /etc/hosts.
+-wild cards: `*` represents zero or more characters. `?` represents a single character. `[]` represents a range of characters\
