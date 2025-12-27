@@ -1,4 +1,4 @@
-Directories
+Directories and Files
 ==========
 
 `pwd` print working directory\
@@ -47,32 +47,36 @@ Get info
 ==========
 `date` displays the current time and date\
 `cal` displays a calendar of the current month\
+`host` see the host name\
 `whoami` get username\
 `whatis command` gives short description\
+`which`\
+`whereis`\
+`type` see the type of the command\
+`file (fileName)` get file type\
 `info command` gives info\
-`uname -a` get system information\
+`uname -a` get system information (-a for all options)\
+`uptime` view system's uptime\
+`cat /etc/os-release` view os version info\
+
 `history` get a list of previous commands\
 `!!` get the last command\
 `sudo !!` run previous command with privileges\
 `!abc:p` print the last command starting with abc\
-`ctrl + R` search easier\
 `!53` recall and execute the command associated with the history number\
 `history -c` delete history\
-To start incremental search, press CTRL-R followed by the text you are looking for. When you ﬁnd it, you can either press ENTER to execute the command or press CTRL-J to copy the line from the history list to the current command line. To ﬁnd the next occurrence of the text (moving “up” the history list), press CTRL-R again. To quit searching, press either CTRL-G or CTRL-C.\
-`export HISTSIZE=50` change history size to 50\
+To start incremental search, press CTRL-R followed by the text you are looking for. When you ﬁnd it, you can either press ENTER to execute the command or press CTRL-J to copy the line from the history list to the current command line, or ctrl-O to execute. To ﬁnd the next occurrence of the text (moving “up” the history list), press CTRL-R again. To quit searching, press either CTRL-G or CTRL-C.\
+`export HISTSIZE=50` change history size to 50. choose zero to delete history.\
 `history > cmds.txt` save history to a cheatsheet\
-`uptime`\
+
 `man <command>` print manual for the certain command. search for certain words by pressing forward slash\
-`man -k <search term>` search for the words you remember when you are not sure of the command\
-`type` get type of command\
-`file (fileName)` get file type\
+`man -k <search term>` search for the words you remember when you are not sure of the command. `apropos` command does the same\
 `echo` (for example echo [[:upper:]]* (it expands and echos list of files starting with uppercase))
 Also can be used as a claculator: $((mathematical expression))
 Parameter expansion (echo $USER)\
 Or command substitution: echo `$(ls)`\
 `echo $HISTSIZE` display system variables\
 `echo "new line" > textfile.txt` make a text file with this line in it (for adding another line you should use >> or it would rewrite the file instead of appending)\
-`man`\
 `top`/`htop`\
 `ping`/`ifconfig`\
 `df` displays the current amount of free space on our disk drives\
@@ -98,20 +102,16 @@ Tools
 `head` prints first 10 line (adjust with -n option) (the -c option is for the number of bytes (characters) shown)\
 `tail` opposite of the head command\
 `less`\
-`|` pipelines (for example you can pipe the output of any command to less to easily examine that)
-`sort` sorts the output
-`uniq` removes duplicate lines
--d option to see duplicates
-`wc` displays number of lines, words, and bytes
--l option displays number of lines (good for counting items in a list)
+`sort` sorts the output alphabetically by default\
+`nl` number the lines of a text file\
+`uniq` removes duplicate lines. use -d option to see duplicates\
+`wc` displays number of lines, words, and bytes. use -l option displays number of lines (good for counting items in a list)\
 `find`\
 `grep pattern filename`\ -i ignores case sensetivity, -v ptints only the lines that do not match the pattern
-`tail`\ prints last 10 line, -f option to see in real time
 `tee` read from stdin and output to stdout and files
 `open X` Open X in its default program\
 `kill`/`xkill`\
 `curl`\
-`ssh user@ipaddress`\
 `hexedit` edit file in hex mode, f2 to save, ctrl x to exit\
 `feh file.jpg` view image files\
 `convert file.jpg -resize  30%  file1.jpg` after installing ImageMagick use to convert file size\
@@ -123,8 +123,10 @@ Tools
 `>>` appends the result to an existing file or just creates one\
 `&>` or `&>>` redirects of appends both standard and error outputs to file (also we can use the old version for example: ls -l /bin/usr > ls-output.txt 2>&1 (only in this order))\
 `2> /dev/null` dispose of unwanted output\
-`chmod [permissions] [path]` change persmission for (ugoa) user (or owner), group, others, all, granting or revoking the permission - indicated with either a plus ( + ) or minus ( - ), Which permission are we setting? - read ( r ), write ( w ) or execute ( x ). example: `chmod u-w file.txt` take away writing permission from user.\
- 
+`chmod [permissions] [path]` change persmission for (ugoa) user (or owner), group, others, all, granting or revoking the permission - indicated with either a plus ( + ) or minus ( - ), Which permission are we setting? - read ( r ), write ( w ) or execute ( x ). example: `chmod u-w file.txt` take away writing permission from user.
+You can easily use three numbers from 0-7 to specify permissions for the user, group and others (for example: chmod 751 file.png = -rwxr-x--x)\
+`ls -d dir` to see persmissions for a directory. ability to read the contents of the directory (ie do an ls), ability to write into the directory (ie create files and directories), ability to enter that directory (ie cd).
+we need to remember is that these permissions are for the directory itself, not the files within.
 
 `vi`
 ------------
@@ -199,7 +201,8 @@ use the `/` to search for words. use `n` to see next occurances.\
 
 ## *build ssh key pairs*
 
-
+`ssh user@ipaddress`\
+`ssh user@server.domain -p portnumber`\
 
 # Shell Scripting
 Shebang line: `#!/bin/bash` (as first line in the .sh file)\
