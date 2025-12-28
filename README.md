@@ -7,6 +7,7 @@ Directories and Files
 `cd -` changes to previous working directory\
 `ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
 `ls -R` list recursively\
+`ls -d` view permission for directories.\
 `ls -l $(which cp)` get list of a program without knowing it's full pathname\
 `mkdir` directory... (as many as you want)(we can use brace expansions too like this: `mkdir {2007..2009}-{01..12}`)\
 `mkdir -p dir1/dir2/dir3` make parent directories as needed. option `-v` would print what was done\
@@ -43,6 +44,7 @@ press Q, crtl+c or ctrl+d to exit\
 `cmd1 && cmd2` Run cmd2 if cmd1 is successful\
 `cmd1 || cmd2` Run cmd2 if cmd1 is not successful\
 
+
 Get info 
 ==========
 `date` displays the current time and date\
@@ -50,7 +52,7 @@ Get info
 `host` see the host name\
 `whoami` get username\
 `whatis command` gives short description\
-`which`\
+`which`print absolute location of a command\
 `whereis`\
 `type` see the type of the command\
 `file (fileName)` get file type\
@@ -58,7 +60,9 @@ Get info
 `uname -a` get system information (-a for all options)\
 `uptime` view system's uptime\
 `cat /etc/os-release` view os version info\
-
+`man <command>` print manual for the certain command. search for certain words by pressing forward slash\
+`man -k <search term>` search for the words you remember when you are not sure of the command. `apropos` command does the same\
+`help <command>` view basic info on built-in commands\
 `history` get a list of previous commands\
 `!!` get the last command\
 `sudo !!` run previous command with privileges\
@@ -66,22 +70,26 @@ Get info
 `!53` recall and execute the command associated with the history number\
 `history -c` delete history\
 To start incremental search, press CTRL-R followed by the text you are looking for. When you ﬁnd it, you can either press ENTER to execute the command or press CTRL-J to copy the line from the history list to the current command line, or ctrl-O to execute. To ﬁnd the next occurrence of the text (moving “up” the history list), press CTRL-R again. To quit searching, press either CTRL-G or CTRL-C.\
+`history n` print n numbers of commands\
+`history | grep <command>` pipe it to grep to search for a certain command or phrase.\
+`cat .bash_history` this file updates itself with the new commands after ending a session.\
 `export HISTSIZE=50` change history size to 50. choose zero to delete history.\
 `history > cmds.txt` save history to a cheatsheet\
-
-`man <command>` print manual for the certain command. search for certain words by pressing forward slash\
-`man -k <search term>` search for the words you remember when you are not sure of the command. `apropos` command does the same\
 `echo` (for example echo [[:upper:]]* (it expands and echos list of files starting with uppercase))
 Also can be used as a claculator: $((mathematical expression))
 Parameter expansion (echo $USER)\
 Or command substitution: echo `$(ls)`\
 `echo $HISTSIZE` display system variables\
 `echo "new line" > textfile.txt` make a text file with this line in it (for adding another line you should use >> or it would rewrite the file instead of appending)\
+`echo rm -rf *` can be used to check the commands (in this case a dangerous one) before executing them.\
+`echo -e "\e[1;37;41mThis is white text on red background\e[0m"` `echo -e "\e[31mThis \e[32mis \e[33ma \e[34mrainbow \e[35mtext\e[0m"` `echo -e "\e[5mThis is blinking text\e[0m" `format the output.\
 `top`/`htop`\
 `ping`/`ifconfig`\
 `df` displays the current amount of free space on our disk drives\
 `free` displays the amount of free memory\
-`printenv` prints a list of available variables\
+`env` or `printenv` prints a list of available variables. `set` prints almost the same content, but it includes the local variables.\
+`set VAR` set a new variable (locally, it will be gone after reboot), `export` it to pass it to child shells and clean it up by `unset` command\
+
 
 Get info on hardware 
 ====================
@@ -127,6 +135,7 @@ Tools
 You can easily use three numbers from 0-7 to specify permissions for the user, group and others (for example: chmod 751 file.png = -rwxr-x--x)\
 `ls -d dir` to see persmissions for a directory. ability to read the contents of the directory (ie do an ls), ability to write into the directory (ie create files and directories), ability to enter that directory (ie cd).
 we need to remember is that these permissions are for the directory itself, not the files within.
+`yes` output a string repeatedly until stopped.\
 
 `vi`
 ------------
@@ -230,3 +239,5 @@ D.
 - Using double quotes, we can cope with ﬁlenames containing embedded spaces. In general, word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed; however, parameter expansion, arithmetic expansion, and command substitution are still carried out. While single quotes suppress every kind of expansion. Use backslash (escape character) to selectively prevent an expansion. Escape this by double backslashing.
 - pressing Tab completes the pathname. Completion will also work on variables (if the beginning of the word is a $), usernames (if the word begins with ~), commands (if the word is the ﬁrst word on the line), and hostnames (if the beginning of the word is @). Hostname completion works only for hostnames listed in /etc/hosts.
 -wild cards: `*` represents zero or more characters. `?` represents a single character. `[]` represents a range of characters\
+-difference between " and '. single quotes preserve literal value of all characters. for instance echo "$PATH" prints the content of the variable but echo `$PATH` prints %PATH literally.\
+-three ways to execute a command. either it is built-in, exits in the PATH and can be executed from any directory or if not it will be executed only by mentioning the absolute path.\
