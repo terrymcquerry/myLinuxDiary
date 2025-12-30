@@ -43,6 +43,7 @@ press Q, crtl+c or ctrl+d to exit\
 `cmd1; cmd2` run the first command, then run the second one\
 `cmd1 && cmd2` Run cmd2 if cmd1 is successful\
 `cmd1 || cmd2` Run cmd2 if cmd1 is not successful\
+`open X` Open X in its default program\
 
 
 Get info 
@@ -103,23 +104,28 @@ Get info on hardware
 Tools
 ==========
 
-`cat` displays text file\
+`cat` repeats whatever you write and then enter\
+`cat file.txt` displays text file\
 `cat -n` displays text with number of lines\
-`cat movie.mpeg.0* > movie.mpeg` joins files back together\
-`cat > file1.txt` accepts input, by pressing ctrl-D saves the text to the file1.txt\
+`cat > file1.txt` accepts input, by pressing ctrl-D (end program) or ctrl-C (cut the program) saves the text to the file1.txt\
+`cat file1.txt > file2.txt` acts like the copy command. if the file already exits, overrides it\
+zipped files such as bizp, xz, gzip files can respectively be looked at via bzcat, xzcat, and zcat commands without unzipping.\
 `head` prints first 10 line (adjust with -n option) (the -c option is for the number of bytes (characters) shown)\
-`tail` opposite of the head command\
-`less`\
-`sort` sorts the output alphabetically by default\
+`tail` opposite of the head command. -f option is very useful for keeping an eye on a file as it gets updated.\
+`less` used for pagination.g and shift g to see the beginning and end of the file. write line number then shift g to move to that line. there is also `more` command but not as good\
+`od` octal dump files (mostly binary ones). use a or c option to see characters\
+`sort` sorts the output alphabetically by default. -b ignores the blank spaces before sorting. -n sorts number based. -r reverses the sorting and -R sorts by random\
 `nl` number the lines of a text file\
-`uniq` removes duplicate lines. use -d option to see duplicates\
+`uniq` removes duplicate lines. use -d option to see duplicates. it works on adjacents lines so it is recommended to use the sort command before hand. use -c to view the number of times it was repeated. -u to print only the unique lines.\
 `wc` displays number of lines, words, and bytes. use -l option displays number of lines (good for counting items in a list)\
+`split` split files into multiple ones by size, number of lines, ...\
+`cut -f2 -d, file` choose a field (here the second field is chosen) and a deliminator (here is , but by default it's tab). useful for CSV files.\
+`sed` use to replace words `sed 's/this/that' file` this changes the word this to that but only the first ocurrance in each line. to do it for all ocurrances use s/this/that/g (global).\
+`paste`\
+`tr` use to replace charecters. sed command is more common. `cat file | tr 'a' 'A'`. remember tr is a pure filter meaning it doesn't accept file as input.\
+`grep pattern filename`\ -i option ignores case sensetivity, -v prints only the lines that do not match the pattern\
 `find`\
-`grep pattern filename`\ -i ignores case sensetivity, -v ptints only the lines that do not match the pattern
-`tee` read from stdin and output to stdout and files
-`open X` Open X in its default program\
-`kill`/`xkill`\
-`curl`\
+`tee` read from stdin and output to stdout and files\
 `hexedit` edit file in hex mode, f2 to save, ctrl x to exit\
 `feh file.jpg` view image files\
 `convert file.jpg -resize  30%  file1.jpg` after installing ImageMagick use to convert file size\
@@ -136,6 +142,7 @@ You can easily use three numbers from 0-7 to specify permissions for the user, g
 `ls -d dir` to see persmissions for a directory. ability to read the contents of the directory (ie do an ls), ability to write into the directory (ie create files and directories), ability to enter that directory (ie cd).
 we need to remember is that these permissions are for the directory itself, not the files within.
 `yes` output a string repeatedly until stopped.\
+`md5sum` and `sha256sum` and `sha512sum` are examples for hashing tools.\
 
 `vi`
 ------------
