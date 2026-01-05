@@ -11,6 +11,8 @@ Directories and Files
 `ls -l $(which cp)` get list of a program without knowing it's full pathname\
 `mkdir` directory... (as many as you want)(we can use brace expansions too like this: `mkdir {2007..2009}-{01..12}`)\
 `mkdir -p dir1/dir2/dir3` make parent directories as needed. option `-v` would print what was done\
+`rmdir dir` directory has to be empty.\
+`rmdir -p dir1/dir2` has to be empty.\
 `rm -rf or -ir` r for recursively and f for forceful and i for prompting (tip: check what you want to remove, with ls first)\
 `cp file1 file1copy` makes a copy of file1 named file1copy\
 `cp -r dir1 dir2` makes a copy of dir1 recursively to ensure every file and directory is copied\
@@ -19,11 +21,11 @@ Directories and Files
 `cp file1 dir1` Copies file1 into directory dir1. The directory dir1 must already exist\
 `cp dir1/* dir2` copies every file in dir1 to dir2\
 `mv -i file1 file2` Move file1 to file2. If file2 exists, it is overwritten with the contents of file1. If file2 does not exist, it is created. In either case, file1 ceases to exist and prompts you before overwriting if file2 already exists\
-`mv file1 .file` hides the file and vice versa.
-`mv file... dir` move one or more files to a directory\
+`mv file1 .file` hides the file and vice versa.\
+`mv file... -t dir` move one or more files to a directory\
 `mv dir/file ./newfile` moves the file from dirctory to the current dirctory and changes it's name.\
 `mv dir1 dir2` no need for the -r option\
-`touch` to make a new file or update the timestamp of it's last modification (`touch new.txt` or in another directory `touch /home/user/project/new.txt`\
+`touch` to make a new file or update the timestamp of it's last modification. -a or -m options to update access time or modification time. use -t to specify time. -r to reference a file's timestamp to another\
 `ln file link` create hard link\
 `ln -s item link` creat soft link (item is either a file or a directory)\
 `diff file1 file1` shows the changes needed in file1 in order for it to match file2\
@@ -56,7 +58,7 @@ Get info
 `which`print absolute location of a command\
 `whereis`\
 `type` see the type of the command\
-`file (fileName)` get file type\
+`file (fileName)` get file type. kinda works like extensions work in windows\
 `info command` gives info\
 `uname -a` get system information (-a for all options)\
 `uptime` view system's uptime\
@@ -124,7 +126,7 @@ zipped files such as bizp, xz, gzip files can respectively be looked at via bzca
 `paste`\
 `tr` use to replace charecters. sed command is more common. `cat file | tr 'a' 'A'`. remember tr is a pure filter meaning it doesn't accept file as input.\
 `grep pattern filename`\ -i option ignores case sensetivity, -v prints only the lines that do not match the pattern\
-`find`\
+`find <positon of start> option`\ -name or -iname (to ignore case sensetivity). -type f (file) or d (directory) or l (link). -not. -maxdepth N. -size (exact or + -) c for bytes, k for kilobytes, M for megabytes, G for gigabytes, or -empty. -exec to act on results (echo, grep,...). -delete. -print\
 `tee` read from stdin and output to stdout and files\
 `hexedit` edit file in hex mode, f2 to save, ctrl x to exit\
 `feh file.jpg` view image files\
@@ -143,6 +145,9 @@ You can easily use three numbers from 0-7 to specify permissions for the user, g
 we need to remember is that these permissions are for the directory itself, not the files within.
 `yes` output a string repeatedly until stopped.\
 `md5sum` and `sha256sum` and `sha512sum` are examples for hashing tools.\
+`tar` to archive files.\
+`dd if of` can copy based on blocks and from drives.\
+`cpio`\
 
 `vi`
 ------------
@@ -200,6 +205,7 @@ use the `/` to search for words. use `n` to see next occurances.\
 `git merge (branch-name)` merges this branch to the current branch ("Fast-forward" means Git was able to simply move the current branch forward to where branch-name was. Since there was no conflict between the branches, this is the simplest form of merging)\
 `git branch --merged` see which branches where integrated\
 `git branch -d branch-name` delete branch after merging (-d flag is there to ensure deletion of the merged branch only. use -D to force delete)
+`git stash` takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy.\
 
 ## *set up*
 `git config` configure git on three levels: system level (apply to all machines), global level (apply for all projects on the machine), local level (apply to a particular project)\
