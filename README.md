@@ -8,7 +8,9 @@ Directories and Files
 `ls -ltrh` l for long, t to sort the result by the ﬁle’s modiﬁcation time, r to reverse the order of the sort, and h to make it human readable\
 `ls -R` list recursively\
 `ls -d` view permission for directories.\
+`ls -F` see file type with characters /, *, and @ which correspond to dir, executable file and link.\
 `ls -l $(which cp)` get list of a program without knowing it's full pathname\
+`tree` visually output directory structure. -d to view only directories and -C to colorise.\
 `mkdir` directory... (as many as you want)(we can use brace expansions too like this: `mkdir {2007..2009}-{01..12}`)\
 `mkdir -p dir1/dir2/dir3` make parent directories as needed. option `-v` would print what was done\
 `rmdir dir` directory has to be empty.\
@@ -96,11 +98,24 @@ Or command substitution: echo `$(ls)`\
 
 Get info on hardware 
 ====================
-`lspci` Shows all devices currently connected to the PCI (Peripheral Component Interconnect) bus\
-`lsusb` Lists USB (Universal Serial Bus) devices currently connected to the machine (specified by id: `lsusb -v -d 1781:0c9f`)\
-`lspci -s 04:02.0 -v` shows more details about a specific device (kernel module can be identified)\
-`lsmod` shows all currently loaded modules
-`modprobe -r` to unload a module\
+`lspci` Shows all devices currently connected to the PCI (Peripheral Component Interconnect) bus. -s to specify hex address of an individual device accompanied by -v to get a verbose response. recommended to use this command with root privilidges. -k option to see the kernel module used for this device.\
+`lsusb` Lists USB (Universal Serial Bus) devices currently connected to the machine (specified by id: `lsusb -v -d 1781:0c9f`). -t to map devices as a hierarchical tree\
+`lsmod` shows all currently loaded modules\
+`rmmod` remove a module\
+`insmod` insert a module with exact path\
+`modprobe` insert a module by name (more common)\
+`modprobe -r` to unload a module. -f to forcefully remove even if it's in use\
+`modinfo` shows a description, the file, the author, the license, the identification, the dependencies and the available parameters for the given module. -p for parameters only.\
+If a module is causing problems, we can blacklist it. add the line `blacklist module-name` to the /etc/modprobe.d/blacklist conf file. Though the better approach is to create a separate configuration file, /etc/modprobe.d/module_name.conf, that will contain settings specific only to the given kernel module.\
+`lsblk` list of block devices\
+`lshw` list of hardware\
+`/proc` and `/sys` sudo file systems used by kernel. `/proc/cpuinfo` lists detailed info on cpus.
+
+Get info on Boot process
+====================
+
+`dmesg`
+`systemctl`
 
 
 Tools
@@ -124,10 +139,10 @@ zipped files such as bizp, xz, gzip files can respectively be looked at via bzca
 `cut -f2 -d, file` choose a field (here the second field is chosen) and a deliminator (here is , but by default it's tab). useful for CSV files.\
 `sed` use to replace words `sed 's/this/that' file` this changes the word this to that but only the first ocurrance in each line. to do it for all ocurrances use s/this/that/g (global).\
 `paste`\
-`tr` use to replace charecters. sed command is more common. `cat file | tr 'a' 'A'`. remember tr is a pure filter meaning it doesn't accept file as input.\
+`tr` use to replace charecters. sed command is more common. `cat file | tr 'a' 'A'`. remember tr is a pure filter meaning it doesn't accept file as input. as an example you can build a ROT13 encoder like this: `cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+`\
 `grep pattern filename`\ -i option ignores case sensetivity, -v prints only the lines that do not match the pattern\
-`find <positon of start> option`\ -name or -iname (to ignore case sensetivity). -type f (file) or d (directory) or l (link). -not. -maxdepth N. -size (exact or + -) c for bytes, k for kilobytes, M for megabytes, G for gigabytes, or -empty. -exec to act on results (echo, grep,...). -delete. -print\
-`tee` read from stdin and output to stdout and files\
+`find <positon of start> option`\ -name or -iname (to ignore case sensetivity). -type f (file) or d (directory) or l (link). -not. -maxdepth N. -size (exact or + -) c for bytes, k for kilobytes, M for megabytes, G for gigabytes, or -empty. -exec to act on results (ie. `-exec file '{}' \;`) (echo, grep,...). -delete. -print. mention user and group owners by -user and -group switches.\
 `hexedit` edit file in hex mode, f2 to save, ctrl x to exit\
 `feh file.jpg` view image files\
 `convert file.jpg -resize  30%  file1.jpg` after installing ImageMagick use to convert file size\
@@ -148,6 +163,14 @@ we need to remember is that these permissions are for the directory itself, not 
 `tar` to archive files.\
 `dd if of` can copy based on blocks and from drives.\
 `cpio`\
+`tee` read from stdin and output to stdout and files\
+`awk '{print $2 " " $1}'` change places.\
+`termgraph`\
+`xargs` take output and put it in another command.\
+`strings` view readable content.\
+`base64 file` and -d to decode.\
+`sh file` execute as shell script.\
+`test or []` evaluates conditional expressions. for example [-n String] checks if the string is non-zero.\
 
 `vi`
 ------------
@@ -167,6 +190,17 @@ use the `/` to search for words. use `n` to see next occurances.\
 `a` to append text at the cursor.\
 `d$`  to delete to the end of the line.\
 
+`Processes`
+------------
+
+`jobs` ctrl z stops a process and fg brings it back on. fg %n brings a certain process to life. jobs shows the status.\
+`bg %n` backgrounds a process so it runs in the background.\
+send a command to background by putting an & at the end of the command.\
+`jobs -l` list processes with id.\
+`nohup command` process goes on after the shell is closed. (used in sshing servers)\
+`kill PID` -9 kill, -15 terminate (default), -1 hup.\
+`killall process-name` 
+`pkill name` name is not exact. patterns in names count.\
 
 
 
@@ -189,14 +223,21 @@ use the `/` to search for words. use `n` to see next occurances.\
 ## *Basics*
 
 `git init` start a git repository on your folder\
+`git remote add origin https//:...`\
+`git push -u origin master` -u option saves your preference and from now on git push will do the same.\
 `git status`check the status of your repository\
-`git add .` prepare files for commit ("." means all files)\
+`git add .` or `git add -A` prepare files for commit ("." means all files)\
 `git restore --staged myfile.py` unstage file\
 `git commit -m "message"` commit the staged files\
 `git log` view project history\
+`git show "commit number"`view the specified commit.\
+`git tag -a v1.0 -m "this is the first version"` tag versions on a current state. to go back to a previous commit to tag specify that commit number. `git show v1.0` to review. `git push v1.0` or `git push origin --tags` to push.\
+`git checkout -- file` take back changes to the last commit.\
+`git rm file` remove file both from working directory and index.\
 `echo "*.log" > .gitignore` specify patterns for files you want to keep untracked (in this case files with log extension) in a gitignore file\
 `git diff` see changes in a file. (-)shows removed and (+) shows added changes\
-`git diff --staged` see staged changes\
+`git diff HEAD` see changes made compared to the last commit.\
+`git diff --staged` see staged changes.\
 `git branch (new-branch)` build a new branch (When you create a new branch, it starts as an exact copy of the branch you were on.) \
 `git branch` list all branches (The * shows which branch you're currently in)\
 `git branch -a` see all branches. This includes remote branches (when working with colaboraters)\
@@ -205,7 +246,16 @@ use the `/` to search for words. use `n` to see next occurances.\
 `git merge (branch-name)` merges this branch to the current branch ("Fast-forward" means Git was able to simply move the current branch forward to where branch-name was. Since there was no conflict between the branches, this is the simplest form of merging)\
 `git branch --merged` see which branches where integrated\
 `git branch -d branch-name` delete branch after merging (-d flag is there to ensure deletion of the merged branch only. use -D to force delete)
-`git stash` takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy.\
+`git stash` takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy. use to get a clean working directory. usefull before pull to avoid conflict.\
+`git stash list` view your stashed instances.\
+`git stash pop` reverse your last stash to working tree.\
+`git stash apply stash{n}` pop the specific stash not necessarily the last one.\
+`git stash push -m "message"` put your changes in stash with a message.\
+`git clean` delete all the uncommited changes. can be done before pulling to make sure the code works fine outside the local machine.\
+`git help command`\
+`git blame file -Ln (line number)` see who changed a line.\
+`git bisect` binary search of commits for the origin of a bug. `git bisect start`, `git bisect bad` ,and `git bisect good t hash"`is the process.\
+
 
 ## *set up*
 `git config` configure git on three levels: system level (apply to all machines), global level (apply for all projects on the machine), local level (apply to a particular project)\
@@ -226,31 +276,44 @@ use the `/` to search for words. use `n` to see next occurances.\
 `ssh user@ipaddress`\
 `ssh user@server.domain -p portnumber`\
 
-# Shell Scripting
+# Bash Scripting
 Shebang line: `#!/bin/bash` (as first line in the .sh file)\
-change mode of the file to executable via (new files are by default non-executable): `chmod +x file.sh`\
+change mode of the file to executable via (new files are by default non-executable): `chmod +x file.sh`. before doing this we can use `sh file` or `bash file` to execute\
 Now to run the file: `./file.sh`\
 Define a variable: `myFirstVariable=5` (it's assigned by = and in this case it's an integer)\
 Now to print the variable: `echo "My variable is: $myFirstVariable"` (dollar sign calls the content of the variable), (put a backslash behind the dollar sign to print it literally)\
-Curly braces {} are used to clearly define the variable name: `${myVariable}`\
+Curly braces {} are used to clearly define the variable name: `${myVariable}` (best practice)\
+We can add variables in the Command Line outside the Bash script like: ./file.sh Samanth Bobby. here the first word is a variable in $1 and the second in $2 and so on. use echo $@ to print all. $0 is a reference to the script itself. `echo $0` will print the name of the script and `rm -f $0` will self destruct.\
+Arrays are like variables that can hold more than one variable under one name. my_array=("value 1" "value 2" "value 3" "value 4"). we access each variable by it's numeric index using curley brackets: ${my_array[1]} is a reference to value 2. ${my_array[-1]} this is value 4. echo ${my_array[@]} will return all arguments. Prepending the array with a hash sign would output the total number of elements in the array, in our case it is 4: echo ${#my_array[@]}.
+Take variable input from user using `read`: read name; echo $name. this will take name from input and print it. print a message
+before prompting the user for their input using the -p option and writing the prompt in double quotes.\
 In order to preserve white space in a variable use double quotes when using echo, otherwise it would not be printed\
-
+In many cases, instead of an if syntax its easier to use something like [command] && command, and for the else clause [command] || command. it is possible to group commands like this: command || { command ; exit ; } here we only exit if the first command fails (note that if we had put the commands in paranthesis, they would be executed in a sub-shell and exiting from a sub-shell wouldn't be enough for us)(note that the compound commands must end with a ; and a white space (otherwise it gets confused with the closing brace of shell variable syntax) or a new line before closing it).
+Note: if you want to do nothing after then in an if statement put : there.
+basic looping construct: for ((i=0; i<10; i++)); do 
+                         <command>
+                         done
+deliberate infinite loop: for ((;;)); do
+                          <command>
+                          done
+There is also: while true; do 
+A for loop that iterate over the parameters to the script ($1 then $2 and $3 and so on): for value; do 
+                                                                                             echo "$value"
+                                                                                             done
+The for loop can be given a list of values to loop over. for instance: for num in 1 2 3 4 5; do... .It can also be a command or pipeline of them. for i in $(seq 1 10) is equal to for ((i=1; i<=10; i++)).
 
 
 Intersting stuff
 ==========
-- If you highlight some
-text by holding down the left mouse button and dragging the
-mouse over it (or double-clicking a word), it is copied into a buffer
-maintained by X. Pressing the middle mouse button will cause the
-text to be pasted at the cursor location.
-- We can end a terminal session by closing the terminal emulator window,
-by entering the exit command at the shell prompt, or by pressing CTRL-
-D.
+
+- If you highlight some text by holding down the left mouse button and dragging the mouse over it (or double-clicking a word), it is copied into a buffer maintained by X. Pressing the middle mouse button will cause the text to be pasted at the cursor location.\
+- We can end a terminal session by closing the terminal emulator window, by entering the exit command at the shell prompt, or by pressing CTRL-D.
 - press CTRL-SHIFT while dragging a file, to make a symbolic link in GUI.\
-- It’s possible to put more than one command on a line by separating each command with a semicolon.
-- Using double quotes, we can cope with ﬁlenames containing embedded spaces. In general, word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed; however, parameter expansion, arithmetic expansion, and command substitution are still carried out. While single quotes suppress every kind of expansion. Use backslash (escape character) to selectively prevent an expansion. Escape this by double backslashing.
-- pressing Tab completes the pathname. Completion will also work on variables (if the beginning of the word is a $), usernames (if the word begins with ~), commands (if the word is the ﬁrst word on the line), and hostnames (if the beginning of the word is @). Hostname completion works only for hostnames listed in /etc/hosts.
+- It’s possible to put more than one command on a line by separating each command with a semicolon. If there is && between the two commands, the second command will only get executed if the first command is successful. || works as an OR conditional, meaning the second command will only get executed if the first one fails.\
+- Using double quotes, we can cope with ﬁlenames containing embedded spaces. In general, word splitting, pathname expansion, tilde expansion, and brace expansion are suppressed; however, parameter expansion, arithmetic expansion, and command substitution are still carried out. While single quotes suppress every kind of expansion. Use backslash (escape character) to selectively prevent an expansion. Escape this by double backslashing.\
+- pressing Tab completes the pathname. Completion will also work on variables (if the beginning of the word is a $), usernames (if the word begins with ~), commands (if the word is the ﬁrst word on the line), and hostnames (if the beginning of the word is @). Hostname completion works only for hostnames listed in /etc/hosts.\
 -wild cards: `*` represents zero or more characters. `?` represents a single character. `[]` represents a range of characters\
--difference between " and '. single quotes preserve literal value of all characters. for instance echo "$PATH" prints the content of the variable but echo `$PATH` prints %PATH literally.\
 -three ways to execute a command. either it is built-in, exits in the PATH and can be executed from any directory or if not it will be executed only by mentioning the absolute path.\
+- send stderr to null drive to prevent it from getting printed on output by 2> /dev/null.\
+- 
+
