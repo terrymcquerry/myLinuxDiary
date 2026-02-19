@@ -59,7 +59,8 @@ Get info
 `whatis command` gives short description\
 `which`print absolute location of a command\
 `whereis`\
-`type` see the type of the command\
+`type` see the type of the command. use -a to see all the instances.\
+`compgen -b` to print a list of all builtin commands.\
 `file (fileName)` get file type. kinda works like extensions work in windows\
 `info command` gives info\
 `uname -a` get system information (-a for all options)\
@@ -129,7 +130,7 @@ Tools
 zipped files such as bizp, xz, gzip files can respectively be looked at via bzcat, xzcat, and zcat commands without unzipping.\
 `head` prints first 10 line (adjust with -n option) (the -c option is for the number of bytes (characters) shown)\
 `tail` opposite of the head command. -f option is very useful for keeping an eye on a file as it gets updated.\
-`less` used for pagination.g and shift g to see the beginning and end of the file. write line number then shift g to move to that line. there is also `more` command but not as good\
+`less` used for pagination.g and shift g to see the beginning and end of the file. write line number then shift g to move to that line. there is also `more` command but not as good. use G and shift G to get to the top and end of file. use / to search in file and n and Shift n to see upper and lower instances.\
 `od` octal dump files (mostly binary ones). use a or c option to see characters\
 `sort` sorts the output alphabetically by default. -b ignores the blank spaces before sorting. -n sorts number based. -r reverses the sorting and -R sorts by random\
 `nl` number the lines of a text file\
@@ -139,9 +140,9 @@ zipped files such as bizp, xz, gzip files can respectively be looked at via bzca
 `cut -f2 -d, file` choose a field (here the second field is chosen) and a deliminator (here is , but by default it's tab). useful for CSV files.\
 `sed` use to replace words `sed 's/this/that' file` this changes the word this to that but only the first ocurrance in each line. to do it for all ocurrances use s/this/that/g (global).\
 `paste`\
-`tr` use to replace charecters. sed command is more common. `cat file | tr 'a' 'A'`. remember tr is a pure filter meaning it doesn't accept file as input. as an example you can build a ROT13 encoder like this: `cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
-`\
-`grep pattern filename`\ -i option ignores case sensetivity, -v prints only the lines that do not match the pattern\
+`tr` use to replace charecters. sed command is more common. `cat file | tr 'a' 'A'`. remember tr is a pure filter meaning it doesn't accept file as input. as an example you can build a ROT13 encoder like this: cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+. To see a better result of the PATH variable you can: echo $PATH | tr : `\n`.\
+`grep pattern filename`\ -i option ignores case sensetivity, -v prints only the lines that do not match the pattern. -o prints only the parts that match. use -A1 to see one line above, -B1 to see one line below, and -C1 to see one line of context. `grep ^pattern` to check the begining of a line and `grep pattern$ to check the ending.\
 `find <positon of start> option`\ -name or -iname (to ignore case sensetivity). -type f (file) or d (directory) or l (link). -not. -maxdepth N. -size (exact or + -) c for bytes, k for kilobytes, M for megabytes, G for gigabytes, or -empty. -exec to act on results (ie. `-exec file '{}' \;`) (echo, grep,...). -delete. -print. mention user and group owners by -user and -group switches.\
 `hexedit` edit file in hex mode, f2 to save, ctrl x to exit\
 `feh file.jpg` view image files\
@@ -158,7 +159,7 @@ zipped files such as bizp, xz, gzip files can respectively be looked at via bzca
 You can easily use three numbers from 0-7 to specify permissions for the user, group and others (for example: chmod 751 file.png = -rwxr-x--x)\
 `ls -d dir` to see persmissions for a directory. ability to read the contents of the directory (ie do an ls), ability to write into the directory (ie create files and directories), ability to enter that directory (ie cd).
 we need to remember is that these permissions are for the directory itself, not the files within.
-`yes` output a string repeatedly until stopped.\
+`yes` output a string repeatedly until stopped. for instance pipe `yes` to a program that requires you to give it your consent repeatedly.\
 `md5sum` and `sha256sum` and `sha512sum` are examples for hashing tools.\
 `tar` to archive files.\
 `dd if of` can copy based on blocks and from drives.\
@@ -171,6 +172,7 @@ we need to remember is that these permissions are for the directory itself, not 
 `base64 file` and -d to decode.\
 `sh file` execute as shell script.\
 `test or []` evaluates conditional expressions. for example [-n String] checks if the string is non-zero.\
+`chsh -s /bin/bash` change shell to bash. list the available options from `cat /etc/shells`. `grep <username> /etc/passwd` to see your current bash. `usermod --shell /bin/bash <username>` is another way to do it. You can also use sudo vim to edit the /etc/passwd file, but it is not recommended.\
 
 `vi`
 ------------
@@ -208,6 +210,7 @@ send a command to background by putting an & at the end of the command.\
 ------------
 
 `apt list --installed`\
+`apt show` see what it is before purging.\
 `apt purge`\
 `apt remove` If you don't want to remove the configuration files\
 `apt autoremove` Remove any unused packages\
@@ -215,7 +218,7 @@ send a command to background by putting an & at the end of the command.\
 `apt update`\
 `apt list --upgradable`\
 `apt upgrade`\
-`apt dist-upgrade`
+`apt dist-upgrade`\
 
 `Git`
 --------------
@@ -275,32 +278,60 @@ send a command to background by putting an & at the end of the command.\
 
 `ssh user@ipaddress`\
 `ssh user@server.domain -p portnumber`\
+`ssh -i sshkey user@server.domain -p portnumber` sshkey exists in current directory.\
+`scp -P portnumber user@server.domain:remoteFile .` download the remoteFile from remote server to the current directory.\
 
 # Bash Scripting
-Shebang line: `#!/bin/bash` (as first line in the .sh file)\
-change mode of the file to executable via (new files are by default non-executable): `chmod +x file.sh`. before doing this we can use `sh file` or `bash file` to execute\
-Now to run the file: `./file.sh`\
+
+## *Start a new script*
+-Shebang line: `#!/bin/bash` (as first line in the .sh file)\
+-change mode of the file to executable via (new files are by default non-executable): `chmod +x file`. Execute a file before doing this by `sh file` or `bash file`.\
+-Now to run the file: `./file.sh`\
 Define a variable: `myFirstVariable=5` (it's assigned by = and in this case it's an integer)\
 Now to print the variable: `echo "My variable is: $myFirstVariable"` (dollar sign calls the content of the variable), (put a backslash behind the dollar sign to print it literally)\
 Curly braces {} are used to clearly define the variable name: `${myVariable}` (best practice)\
 We can add variables in the Command Line outside the Bash script like: ./file.sh Samanth Bobby. here the first word is a variable in $1 and the second in $2 and so on. use echo $@ to print all. $0 is a reference to the script itself. `echo $0` will print the name of the script and `rm -f $0` will self destruct.\
-Arrays are like variables that can hold more than one variable under one name. my_array=("value 1" "value 2" "value 3" "value 4"). we access each variable by it's numeric index using curley brackets: ${my_array[1]} is a reference to value 2. ${my_array[-1]} this is value 4. echo ${my_array[@]} will return all arguments. Prepending the array with a hash sign would output the total number of elements in the array, in our case it is 4: echo ${#my_array[@]}.
+Arrays are like variables that can hold more than one variable under one name. my_array=("value 1" "value 2" "value 3" "value 4"). we access each variable by it's numeric index using curley brackets: ${my_array[1]} is a reference to value 2. ${my_array[-1]} this is value 4. echo ${my_array[@]} will return all arguments. Prepending the array with a hash sign would output the total number of elements in the array, in our case it is 4: echo ${#my_array[@]}.\
 Take variable input from user using `read`: read name; echo $name. this will take name from input and print it. print a message
-before prompting the user for their input using the -p option and writing the prompt in double quotes.\
+before prompting the user for their input using the -p option and writing the prompt in double quotes. use -r to print what you give as raw. notice that read only reads the first line.\
+use `thing=$(uname -a)` syntax to put the result of a command in a variable. the older syntax is like this: `thing=`uname -a``.\
 In order to preserve white space in a variable use double quotes when using echo, otherwise it would not be printed\
-In many cases, instead of an if syntax its easier to use something like [command] && command, and for the else clause [command] || command. it is possible to group commands like this: command || { command ; exit ; } here we only exit if the first command fails (note that if we had put the commands in paranthesis, they would be executed in a sub-shell and exiting from a sub-shell wouldn't be enough for us)(note that the compound commands must end with a ; and a white space (otherwise it gets confused with the closing brace of shell variable syntax) or a new line before closing it).
-Note: if you want to do nothing after then in an if statement put : there.
-basic looping construct: for ((i=0; i<10; i++)); do 
-                         <command>
-                         done
-deliberate infinite loop: for ((;;)); do
-                          <command>
-                          done
-There is also: while true; do 
-A for loop that iterate over the parameters to the script ($1 then $2 and $3 and so on): for value; do 
-                                                                                             echo "$value"
-                                                                                             done
-The for loop can be given a list of values to loop over. for instance: for num in 1 2 3 4 5; do... .It can also be a command or pipeline of them. for i in $(seq 1 10) is equal to for ((i=1; i<=10; i++)).
+In many cases, instead of an if syntax its easier to use something like [command] && command, and for the else clause [command] || command. it is possible to group commands like this: command || { command ; exit ; } here we only exit if the first command fails (note that if we had put the commands in paranthesis, they would be executed in a sub-shell and exiting from a sub-shell wouldn't be enough for us)(note that the compound commands must end with a ; and a white space (otherwise it gets confused with the closing brace of shell variable syntax) or a new line before closing it).\
+Note: if you want to do nothing after then in an if statement put : there.\
+basic looping construct:\ 
+for ((i=0; i<10; i++)); do\ 
+<command>\
+done\
+deliberate infinite loop:\ 
+for ((;;)); do\
+<command>\
+done\
+There is also: while true; do\ 
+A for loop that iterate over the parameters to the script ($1 then $2 and $3 and so on):\ 
+for value; do\ 
+echo "$value"\
+done\
+The for loop can be given a list of values to loop over. for instance: for num in 1 2 3 4 5; do... .It can also be a command or pipeline of them. for i in $(seq 1 10) is equal to for ((i=1; i<=10; i++)).\
+when declaring a variable in a function use `local` before it to not polute the names, since it becomes global otherwise.\
+It is possible to check a command with if. if the command works with no errors, then if is true.\
+Use `bash -n script` to perform a syntax check.\
+In the case syntax if you close each case with ;;& it will fall through to check the next case.\
+If you exapand an array like a variable, it will only expand to the first index ($array. to get certain indexes use ${$array[1]}.\
+To loop over all the indexes use @. it's important to put the whole thing in double quotes: for item in "${array[@]}".\
+To copy an array correctly: second_array=("${first_array[@]}").\
+To push items to an existiong array: second_array+=(item1 item2).\
+It's possible to use declare -a command to make new arrays. If you want to see that a variable is actually an array use declare with -p option.\
+Get the length of an array: echo "#${array[@]}". put the index number to get the length of the string in that index.\
+Use declare -A arr to build associative arrays (kinda like objects). arr[foo]=1 to put value in it. echo "${arr[*]}" to see values and echo "${!arr[*]}" to see the keys.\
+put a new value to IFS such as a ',' is very powerfull. you can do this when stringifying the arrays values with '*'. In order not to have to worry about changing IFS, you can do so in a subshell, by putting the code in ().\
+Command substitution can be done by backticks. It's better to use $(command) (it will be run in a subshell). A new syntax to avoid subshells: thing=${ myfunc ;}/\
+Use let or (()) for arithmetic operations. The curve ball on this one is that (()) returns an exit code and if the arithmetic equalls to 0 the exit code is going to be 1.\
+Some reserved exit codes: 1: catchall for general errors. 126: command cannot be executed. 127: command not found. 130: Script terminated by Control-C. Exit codes 1 - 2, 126 - 165, and 255 have special meanings, and should therefore be avoided for user-specified exit parameters. Restricting user-defined exit codes to the range 64 - 113 (in addition to 0, for success) is the c/c++ standard. An exit value greater than 255 returns an exit code modulo 256.\
+`Set e` put it at the top of the bash script and it will exit on error. Another thing is that a leading zero in the number you put inside it, makes it treat it as an octal number. One way around this is to declare the base to ten, so if we have a=08, ((10#$a)) will put it in base 10.\
+`set x` for debugging.\
+Exit the script at the end. just saying exit will return the exit value of the last run command. or exit 0 to indicate success.\
+cat /dev/null > to a file to clean it up.\
+`Bash -x script` puts bash in debug mode. also we can put `set -x` in the script. and `set +x will turn it off. You can write a message before the outputs by using: PS4='[debug]= ' bash -x script.sh. bash -u looks for undefined variables\
 
 
 Intersting stuff
